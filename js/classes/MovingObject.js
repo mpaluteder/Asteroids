@@ -44,12 +44,13 @@ export default class MovingObject {
             x: (lockXPlane ? (lockReverse ? addedSpacing : canvasWidth - addedSpacing) : Math.max(Math.floor(Math.random() * canvasWidth - addedSpacing), addedSpacing)),
             y: (!lockXPlane ? (lockReverse ? addedSpacing : canvasWidth - addedSpacing) : Math.max(Math.floor(Math.random() * canvasWidth - addedSpacing), addedSpacing)),
         };          
-        console.log(randomPosition);
-        const randomVelocity = {
+        //console.log(randomPosition);
+        let randomVelocity = {
             x: Math.floor(Math.random() * maxVelocity) * (Math.random() < 0.5 ? 1 : -1),
             y: Math.floor(Math.random() * maxVelocity) * (Math.random() < 0.5 ? 1 : -1),
         };
-        if (randomVelocity.x === 0 && randomVelocity.y == 0){
+        //console.log(randomVelocity);
+        if (randomVelocity.x === 0 && randomVelocity.y === 0){
             randomVelocity = {x: 1, y: 1};
         }
         const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
