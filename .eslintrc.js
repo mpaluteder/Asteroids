@@ -28,7 +28,7 @@ module.exports = {
         ],
         'semi': [
             'error',
-            'never'
+            'always'
         ],
         'comma-dangle': [
             'error',
