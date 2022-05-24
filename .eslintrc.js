@@ -28,11 +28,15 @@ module.exports = {
         ],
         'semi': [
             'error',
-            'always'
+            'always',
+            { "omitLastInOneLineBlock": true }
         ],
         'comma-dangle': [
             'error',
             'only-multiline'
+        ],
+        'no-unreachable': [
+            'error'
         ]
     }
 }
