@@ -33,7 +33,7 @@ export default class Game {
 
     repopulateAsteroids() {
         for(let i = this.asteroids.size; i < MIN_ASTEROIDS; i++){
-            this.asteroids.add(MovingObject.createRandom());
+            this.asteroids.add(MovingObject.createFromEdge());
         }
     }
 
