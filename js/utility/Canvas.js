@@ -1,6 +1,12 @@
 const canvas = document.getElementById('canvas-stage');
 const context = canvas.getContext('2d');
 
+export const canvasWidth = 1000;
+export const canvasHeight = 1000;
+
+canvas.width = canvasWidth;
+canvas.height = canvasHeight;
+
 const { PI } = Math;
 
 export default {
