@@ -1,16 +1,14 @@
 import Canvas from '../utility/Canvas.js';
 import MovingObject from './MovingObject.js';
 
+const MIN_ASTEROIDS = 10;
+
 export default class Game {
 
     asteroids;
     
-    constructor(asteroidCount = 10) {
-        this.asteroids = [];
-
-        for (let i = 0; i < asteroidCount; i++) {
-            this.asteroids.push(MovingObject.createRandom());
-        }
+    constructor(asteroidCount = MIN_ASTEROIDS) {
+        this.asteroids = new Set();
     }
 
     move() {
@@ -23,13 +21,28 @@ export default class Game {
         for (let asteroid of this.asteroids) {
             asteroid.draw();
         }
+    }
 
+    removeOutOfBounds(){
+        for (let asteroid of this.asteroids) {
+            if (asteroid.outOfBounds()){
+                this.asteroids.delete(asteroid);                        
+            }
+        }
+    }
+
+    repopulateAsteroids() {
+        for(let i = this.asteroids.size; i < MIN_ASTEROIDS; i++){
+            this.asteroids.add(MovingObject.createRandom());
+        }
     }
 
     tick() {
-        Canvas.clear();
+        Canvas.clear();        
         this.move();
         this.draw();
+        this.removeOutOfBounds();
+        this.repopulateAsteroids();
         requestAnimationFrame(this.tick.bind(this));
     }
 
