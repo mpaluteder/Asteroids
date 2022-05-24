@@ -1,40 +1,40 @@
-import Canvas from "../utility/Canvas.js";
-import MovingObject from "./MovingObject.js";
+import Canvas from '../utility/Canvas.js'
+import MovingObject from './MovingObject.js'
 
 export default class Game {
 
-    asteroids;
+    asteroids
     
     constructor(asteroidCount = 10) {
-        this.asteroids = [];
+        this.asteroids = []
 
         for (let i = 0; i < asteroidCount; i++) {
-            this.asteroids.push(MovingObject.createRandom());
+            this.asteroids.push(MovingObject.createRandom())
         }
-    };
+    }
 
     move() {
         for (let asteroid of this.asteroids) {
-            asteroid.move();
+            asteroid.move()
         }
-    };
+    }
 
     draw() {
         for (let asteroid of this.asteroids) {
-            asteroid.draw();
+            asteroid.draw()
         }
 
-    };
+    }
 
     tick() {
-        Canvas.clear();
-        this.move();
-        this.draw();
-        requestAnimationFrame(this.tick.bind(this));
-    };
+        Canvas.clear()
+        this.move()
+        this.draw()
+        requestAnimationFrame(this.tick.bind(this))
+    }
 
     start() {
-        this.tick();
-    };
+        this.tick()
+    }
     
 }
