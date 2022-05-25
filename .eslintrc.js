@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     'env': {
         'browser': true,
         'es6': true
@@ -7,12 +7,13 @@ module.exports = {
     'parser': '@babel/eslint-parser',
     'parserOptions': {
         'ecmaVersion': 2018,
-        "requireConfigFile": false,
+        'requireConfigFile': false,
         'sourceType': 'module'
     },
     'plugins': [
         'babel',
     ],
+    'ignorePatterns': ['/build/*'],
     'rules': {
         'indent': [
             'error',
@@ -29,7 +30,7 @@ module.exports = {
         'semi': [
             'error',
             'always',
-            { "omitLastInOneLineBlock": true }
+            { 'omitLastInOneLineBlock': true }
         ],
         'comma-dangle': [
             'error',

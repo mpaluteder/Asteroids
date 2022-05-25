@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "python3 -m http.server 2222",
+    "start": "webpack-dev-server",
+    "startp": "python3 -m http.server 2222",
     "lint": "eslint js/"
   },
   "keywords": [],
@@ -13,7 +14,10 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.5.4",
     "eslint": "^8.16.0",
-    "eslint-plugin-babel": "^5.3.1"
+    "eslint-plugin-babel": "^5.3.1",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.0"
   },
   "dependencies": {
     "@babel/core": "^7.18.0"

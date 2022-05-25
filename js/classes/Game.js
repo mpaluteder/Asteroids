@@ -1,26 +1,31 @@
-import Canvas from '../utility/Canvas.js';
+import Canvas from 'utility/Canvas.js';
 import MovingObject from './MovingObject.js';
+import Ship from './ship.js';
 
 const MIN_ASTEROIDS = 10;
 
 export default class Game {
 
     asteroids;
+    ship;
     
     constructor(asteroidCount = MIN_ASTEROIDS) {
         this.asteroids = new Set();
+        this.ship = new Ship();
     }
 
     move() {
         for (let asteroid of this.asteroids) {
             asteroid.move();
         }
+        this.ship.move();
     }
 
     draw() {
         for (let asteroid of this.asteroids) {
             asteroid.draw();
         }
+        this.ship.draw();
     }
 
     removeOutOfBounds(){

@@ -1,4 +1,4 @@
-import Canvas, {canvasWidth, canvasHeight} from '/js/utility/Canvas.js';
+import Canvas, {canvasWidth, canvasHeight} from 'utility/Canvas.js';
 
 const DEFAULT_RADIUS = 10;
 const DEFAULT_BORDER_WIDTH = 2;
@@ -13,8 +13,8 @@ export default class MovingObject {
     colors = [];
 
     constructor(initialPosition = {x: 0, y: 0}, 
-                initialVelocity = {x: 1, y: 1},
-                initialColor = 'red',
+        initialVelocity = {x: 1, y: 1},
+        initialColor = 'red',
     ) {
         this.position = initialPosition;
         this.velocity = initialVelocity;
