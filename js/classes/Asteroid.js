@@ -1,4 +1,4 @@
-import Canvas, {canvasWidth, canvasHeight} from 'utility/Canvas.js';
+import {canvasWidth, canvasHeight} from 'utility/Canvas.js';
 import Vec2 from './Vec2.js';
 import MovingObject from './MovingObject.js';
 
@@ -43,7 +43,7 @@ export default class Asteroid extends MovingObject{
 
         const randomPosition = new Vec2(
             (lockXPlane ? (lockReverse ? addedSpacing : canvasWidth - addedSpacing) : Math.max(Math.floor(Math.random() * canvasWidth - addedSpacing), addedSpacing)),
-            (!lockXPlane ? (lockReverse ? addedSpacing : canvasWidth - addedSpacing) : Math.max(Math.floor(Math.random() * canvasWidth - addedSpacing), addedSpacing)),
+            (!lockXPlane ? (lockReverse ? addedSpacing : canvasHeight - addedSpacing) : Math.max(Math.floor(Math.random() * canvasHeight - addedSpacing), addedSpacing)),
         );          
         
         let randomVelocity = new Vec2(
