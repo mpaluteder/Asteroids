@@ -2,6 +2,7 @@ import Canvas from 'utility/Canvas.js';
 import MovingObject from './MovingObject.js';
 import Ship from './ship.js';
 import key from 'keymaster';
+import testMe from '../utility/testMe.js';
 
 export default class Game {
 
@@ -65,6 +66,17 @@ export default class Game {
         }
     }
 
+    checkCollisions(){
+        for (let bullet of this.bullets){
+            for (let asteroid of this.asteroids){
+                if (bullet.isCollidedWith(asteroid)){
+                    this.bullets.delete(bullet);
+                    this.asteroids.delete(asteroid);
+                }
+            }
+        }
+    }
+
     tick() {
         Canvas.clear();        
         this.move();
@@ -72,6 +84,7 @@ export default class Game {
         this.removeOutOfBounds();
         this.repopulateAsteroids();
         this.bindHandlers();
+        this.checkCollisions();
         requestAnimationFrame(this.tick.bind(this));
     }
 

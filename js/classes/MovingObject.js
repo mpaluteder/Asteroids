@@ -113,4 +113,13 @@ export default class MovingObject {
         this.position = new Vec2(positionX, positionY);
 
     }
+
+    isCollidedWith(otherMovingObject) {
+        if (this.position.distanceTo(otherMovingObject.position) <= this.radius + otherMovingObject.radius){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
