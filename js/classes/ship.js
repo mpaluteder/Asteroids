@@ -8,8 +8,7 @@ const RADIAN_HELPER = (180 / Math.PI);
 export default class Ship extends MovingObject {
     
     max_velocity = 10;
-    min_turning_angle = 0;
-    max_turning_angle = 2 * Math.PI;
+    stopping_modifier = 0.1;
     turning_speed = Math.PI / 50;
     direction;
 
@@ -51,26 +50,24 @@ export default class Ship extends MovingObject {
             };
         }
         else { 
-            return NULL_VECTOR;
+            let velocityX = this.velocity.x;
+            let velocityY = this.velocity.y;
+            if (velocityX > 0) {
+                velocityX = 1;
+            }
+            else if (velocityY > 0) {
+                velocityY = 1;
+            }
+            return {
+                x: velocityX * (-1) * this.stopping_modifier, 
+                y: velocityY * (-1) * this.stopping_modifier
+            };
         }
     }
 
 
     move() {
-        /*
-        if (key.isPressed('w')){
-            this.position = {
-                x: this.position.x + this.velocity.x, 
-                y: this.position.y + this.velocity.y,
-            }; 
-            console.log(this.getAcceleration());
-            const acceleration = this.getAcceleration();
-            this.velocity = {
-                x: this.velocity.x + acceleration.x,
-                y: this.velocity.y + acceleration.y
-            };
-        }
-        else*/ if (key.isPressed('a')){
+        if (key.isPressed('a')){
             this.direction -= 0.1;            
         }
         else if (key.isPressed('d')){
@@ -87,17 +84,7 @@ export default class Ship extends MovingObject {
             y: this.position.y + this.velocity.y,
         }; 
 
-        console.log(this.position);
-        console.log(this.direction);
-/*
-        if (this.direction > this.max_turning_angle){
-            this.direction = this.max_turning_angle;
-        }
-        else if (this.direction < this.min_turning_angle) {
-            this.direction = this.min_turning_angle;
-        }
-        console.log(this.direction);
-        */
+        this.wrap();
         
     }
 }
