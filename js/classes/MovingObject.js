@@ -1,4 +1,5 @@
 import Canvas, {canvasWidth, canvasHeight} from 'utility/Canvas.js';
+import Vec2 from 'classes/Vec2.js';
 
 const DEFAULT_RADIUS = 10;
 const DEFAULT_BORDER_WIDTH = 2;
@@ -12,8 +13,8 @@ export default class MovingObject {
     lineWidth = DEFAULT_BORDER_WIDTH;
     colors = [];
 
-    constructor(initialPosition = {x: 0, y: 0}, 
-        initialVelocity = {x: 1, y: 1},
+    constructor(initialPosition = new Vec2(), 
+        initialVelocity = new Vec2(1, 1),
         initialColor = 'red',
     ) {
         this.position = initialPosition;
@@ -27,28 +28,25 @@ export default class MovingObject {
         let lockXPlane = Math.random() < 0.5;
         let lockReverse = Math.random() < 0.5;
 
-        const randomPosition = {
-            x: (lockXPlane ? (lockReverse ? addedSpacing : canvasWidth - addedSpacing) : Math.max(Math.floor(Math.random() * canvasWidth - addedSpacing), addedSpacing)),
-            y: (!lockXPlane ? (lockReverse ? addedSpacing : canvasWidth - addedSpacing) : Math.max(Math.floor(Math.random() * canvasWidth - addedSpacing), addedSpacing)),
-        };          
+        const randomPosition = new Vec2(
+            (lockXPlane ? (lockReverse ? addedSpacing : canvasWidth - addedSpacing) : Math.max(Math.floor(Math.random() * canvasWidth - addedSpacing), addedSpacing)),
+            (!lockXPlane ? (lockReverse ? addedSpacing : canvasWidth - addedSpacing) : Math.max(Math.floor(Math.random() * canvasWidth - addedSpacing), addedSpacing)),
+        );          
         
-        let randomVelocity = {
-            x: Math.floor(Math.random() * maxVelocity + 1) * (Math.random() < 0.5 ? 1 : -1),
-            y: Math.floor(Math.random() * maxVelocity + 1) * (Math.random() < 0.5 ? 1 : -1),
-        };
+        let randomVelocity = new Vec2(
+            Math.floor(Math.random() * maxVelocity + 1) * (Math.random() < 0.5 ? 1 : -1),
+            Math.floor(Math.random() * maxVelocity + 1) * (Math.random() < 0.5 ? 1 : -1),
+        );
         
         if (randomVelocity.x === 0 && randomVelocity.y === 0){
-            randomVelocity = {x: 1, y: 1};
+            randomVelocity = new Vec2(1, 1);
         }
         const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
         return new MovingObject(randomPosition, randomVelocity, randomColor);
     }
 
     move() {
-        this.position = {
-            x: this.position.x + this.velocity.x, 
-            y: this.position.y + this.velocity.y,
-        };        
+        this.position.add(this.velocity);
     }
 
     draw() {
@@ -85,14 +83,13 @@ export default class MovingObject {
             return 'E';
         }    
 
-
         return '';
     }
 
     wrap() {
         let outOfBoundsDirection = this.outOfBoundsDirection();
         if (outOfBoundsDirection === '') {
-            return
+            return;
         }         
         
         let positionX = this.position.x;
@@ -111,10 +108,7 @@ export default class MovingObject {
             positionX = 0;
         }
 
-        this.position = {
-            x: positionX,
-            y: positionY
-        }
+        this.position = new Vec2(positionX, positionY);
 
     }
 }

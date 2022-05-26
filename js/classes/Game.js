@@ -2,14 +2,14 @@ import Canvas from 'utility/Canvas.js';
 import MovingObject from './MovingObject.js';
 import Ship from './ship.js';
 
-const MIN_ASTEROIDS = 10;
-
 export default class Game {
 
+    max_asteroids;
     asteroids;
     ship;
     
-    constructor(asteroidCount = MIN_ASTEROIDS) {
+    constructor(asteroidCount = 10) {
+        this.max_asteroids = asteroidCount;
         this.asteroids = new Set();
         this.ship = new Ship();
     }
@@ -37,7 +37,7 @@ export default class Game {
     }
 
     repopulateAsteroids() {
-        for(let i = this.asteroids.size; i < MIN_ASTEROIDS; i++){
+        for(let i = this.asteroids.size; i < this.max_asteroids; i++){
             this.asteroids.add(MovingObject.createFromRandomEdge());
         }
     }
