@@ -16,10 +16,12 @@ export default class MovingObject {
     constructor(initialPosition = new Vec2(), 
         initialVelocity = new Vec2(1, 1),
         initialColor = 'red',
+        radius = DEFAULT_RADIUS,
     ) {
         this.position = initialPosition;
         this.velocity = initialVelocity;
         this.color = initialColor;
+        this.radius = radius;
     }
 
     static createFromRandomEdge(maxVelocity = 10, easeInFromObjectOuterBorder = true) {

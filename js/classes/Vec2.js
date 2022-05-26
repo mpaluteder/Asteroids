@@ -8,4 +8,8 @@ export default class Vec2 {
         this.x = this.x + vector.x,
         this.y = this.y + vector.y;
     }
+
+    magnitude() {
+        return Math.sqrt(this.x**2 + this.y**2);
+    }
 }

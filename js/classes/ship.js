@@ -5,19 +5,22 @@ import key from 'keymaster';
 
 
 export default class Ship extends MovingObject {
+
+    BULLET_RADIUS = 5;
     
     max_velocity = 10;
     acceleration_modifier = 0.1;
     stopping_modifier = 0.1;
+    min_bullet_velocity = 10;
     turning_speed = Math.PI / 50;
     direction;
 
     constructor() {
         super(new Vec2(500, 500),
             new Vec2(),
-            'white');
+            'white',
+            50);
         this.direction = -Math.PI / 2;
-        this.radius = 50;        
         console.log('ship constructed');
     }
 
@@ -64,6 +67,24 @@ export default class Ship extends MovingObject {
         }
     }
 
+    shoot(){
+        let bulletInitialPosition = new Vec2(
+            this.position.x + this.radius, 
+            this.position.y
+        );
+
+        let bulletVelocity = new Vec2(
+            this.velocity.x + this.min_bullet_velocity * Math.cos(this.direction),
+            this.velocity.y  + this.min_bullet_velocity * Math.sin(this.direction)
+        );        
+
+        return new MovingObject(
+            bulletInitialPosition, 
+            bulletVelocity,
+            'red',
+            this.BULLET_RADIUS);
+    }
+
 
     move() {
         if (key.isPressed('a')){
@@ -78,7 +99,6 @@ export default class Ship extends MovingObject {
         this.position.add(this.velocity);
         
 
-        this.wrap();
-        
+        this.wrap();        
     }
 }
