@@ -21,35 +21,22 @@ export default class MovingObject {
         this.color = initialColor;
     }
 
-    static createRandom(maxVelocity = 10) {
-        const addedSpacing = DEFAULT_RADIUS + DEFAULT_BORDER_WIDTH;
-        const randomPosition = {
-            x: Math.max(Math.floor(Math.random() * canvasWidth - addedSpacing), addedSpacing),
-            y: Math.max(Math.floor(Math.random() * canvasHeight - addedSpacing), addedSpacing),
-        };          
-        //console.log(randomPosition);
-        const randomVelocity = {
-            x: Math.floor(Math.random() * maxVelocity),
-            y: Math.floor(Math.random() * maxVelocity),
-        };
-        const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-        return new MovingObject(randomPosition, randomVelocity, randomColor);
-    }
+    static createFromRandomEdge(maxVelocity = 10, easeInFromObjectOuterBorder = true) {
+        const addedSpacing = easeInFromObjectOuterBorder ? 0 : DEFAULT_RADIUS + DEFAULT_BORDER_WIDTH;
 
-    static createFromEdge(maxVelocity = 10) {
-        const addedSpacing = 0; // DEFAULT_RADIUS + DEFAULT_BORDER_WIDTH;
         let lockXPlane = Math.random() < 0.5;
         let lockReverse = Math.random() < 0.5;
+
         const randomPosition = {
             x: (lockXPlane ? (lockReverse ? addedSpacing : canvasWidth - addedSpacing) : Math.max(Math.floor(Math.random() * canvasWidth - addedSpacing), addedSpacing)),
             y: (!lockXPlane ? (lockReverse ? addedSpacing : canvasWidth - addedSpacing) : Math.max(Math.floor(Math.random() * canvasWidth - addedSpacing), addedSpacing)),
         };          
-        //console.log(randomPosition);
+        
         let randomVelocity = {
-            x: Math.floor(Math.random() * maxVelocity) * (Math.random() < 0.5 ? 1 : -1),
-            y: Math.floor(Math.random() * maxVelocity) * (Math.random() < 0.5 ? 1 : -1),
+            x: Math.floor(Math.random() * maxVelocity + 1) * (Math.random() < 0.5 ? 1 : -1),
+            y: Math.floor(Math.random() * maxVelocity + 1) * (Math.random() < 0.5 ? 1 : -1),
         };
-        //console.log(randomVelocity);
+        
         if (randomVelocity.x === 0 && randomVelocity.y === 0){
             randomVelocity = {x: 1, y: 1};
         }
