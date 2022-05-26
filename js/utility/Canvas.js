@@ -1,5 +1,3 @@
-import Vec2 from 'classes/Vec2.js';
-
 const canvas = document.getElementById('canvas-stage');
 const context = canvas.getContext('2d');
 

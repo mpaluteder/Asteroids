@@ -1,7 +1,7 @@
 import Canvas from 'utility/Canvas.js';
-import MovingObject from './MovingObject.js';
 import Ship from './ship.js';
 import key from 'keymaster';
+import Asteroid from './Asteroid.js';
 
 export default class Game {
 
@@ -62,7 +62,7 @@ export default class Game {
 
     repopulateAsteroids() {
         for(let i = this.asteroids.size; i < this.max_asteroids; i++){
-            this.asteroids.add(MovingObject.createFromRandomEdge());
+            this.asteroids.add(Asteroid.createFromRandomEdge(3));
         }
     }
 
@@ -70,10 +70,8 @@ export default class Game {
         if (this.ship.immunity > 0){
             return;
         }
-
-        console.log('Collision!');
         this.ship.health--;
-        console.log(this.ship.health);
+        console.log('Collision! Remaining health: ' + this.ship.health);
 
         Canvas.drawShipDamageEffect(collisionPosition);
         if (this.ship.health <= 0){
@@ -83,6 +81,21 @@ export default class Game {
         this.ship.immunity = 100;
     }
 
+    handleCollisions(collidingObject, collideToObject, collisionType){
+        if (collisionType === 'asteroid-bullet'){
+            this.bullets.delete(collideToObject);            
+        }
+        else if(collisionType === 'asteroid-ship'){
+            this.asteroids.delete(collidingObject); 
+            this.handleShipCollision(collideToObject.position);
+        }
+        for (let newAsteroid of collidingObject.handleCollision()){
+            this.asteroids.add(newAsteroid);
+        }
+        this.asteroids.delete(collidingObject);
+
+    }    
+
     checkCollisions(){
     
         this.ship.immunity--;
@@ -90,14 +103,12 @@ export default class Game {
             for (let bullet of this.bullets){
                 //asteroid-bullet
                 if (bullet.isCollidedWith(asteroid)){
-                    this.bullets.delete(bullet);
-                    this.asteroids.delete(asteroid);
+                    this.handleCollisions(asteroid, bullet, 'asteroid-bullet');
                 }                            
             }
             //asteroid-ship
             if (this.ship.isCollidedWith(asteroid)){
-                this.handleShipCollision(asteroid.position);
-                this.asteroids.delete(asteroid);
+                this.handleCollisions(asteroid, this.ship, 'asteroid-ship');
             }
         }
 

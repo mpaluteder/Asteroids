@@ -22,30 +22,7 @@ export default class MovingObject {
         this.velocity = initialVelocity;
         this.color = initialColor;
         this.radius = radius;
-    }
-
-    static createFromRandomEdge(maxVelocity = 10, easeInFromObjectOuterBorder = true) {
-        const addedSpacing = easeInFromObjectOuterBorder ? 0 : DEFAULT_RADIUS + DEFAULT_BORDER_WIDTH;
-
-        let lockXPlane = Math.random() < 0.5;
-        let lockReverse = Math.random() < 0.5;
-
-        const randomPosition = new Vec2(
-            (lockXPlane ? (lockReverse ? addedSpacing : canvasWidth - addedSpacing) : Math.max(Math.floor(Math.random() * canvasWidth - addedSpacing), addedSpacing)),
-            (!lockXPlane ? (lockReverse ? addedSpacing : canvasWidth - addedSpacing) : Math.max(Math.floor(Math.random() * canvasWidth - addedSpacing), addedSpacing)),
-        );          
-        
-        let randomVelocity = new Vec2(
-            Math.floor(Math.random() * maxVelocity + 1) * (Math.random() < 0.5 ? 1 : -1),
-            Math.floor(Math.random() * maxVelocity + 1) * (Math.random() < 0.5 ? 1 : -1),
-        );
-        
-        if (randomVelocity.x === 0 && randomVelocity.y === 0){
-            randomVelocity = new Vec2(1, 1);
-        }
-        const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-        return new MovingObject(randomPosition, randomVelocity, randomColor);
-    }
+    }    
 
     move() {
         this.position.add(this.velocity);
@@ -121,5 +98,9 @@ export default class MovingObject {
         else {
             return false;
         }
+    }
+
+    handleCollision2() {
+
     }
 }
