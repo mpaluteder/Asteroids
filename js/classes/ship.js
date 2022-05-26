@@ -14,6 +14,8 @@ export default class Ship extends MovingObject {
     min_bullet_velocity = 10;
     turning_speed = Math.PI / 50;
     direction;
+    health = 3;
+    immunity = 0;
 
     constructor() {
         super(new Vec2(500, 500),

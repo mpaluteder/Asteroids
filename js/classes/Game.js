@@ -2,10 +2,10 @@ import Canvas from 'utility/Canvas.js';
 import MovingObject from './MovingObject.js';
 import Ship from './ship.js';
 import key from 'keymaster';
-import testMe from '../utility/testMe.js';
 
 export default class Game {
 
+    running;
     max_asteroids;
     asteroids;
     ship;
@@ -66,18 +66,48 @@ export default class Game {
         }
     }
 
+    handleShipCollision(collisionPosition) {
+        if (this.ship.immunity > 0){
+            return;
+        }
+
+        console.log('Collision!');
+        this.ship.health--;
+        console.log(this.ship.health);
+
+        Canvas.drawShipDamageEffect(collisionPosition);
+        if (this.ship.health <= 0){
+            Canvas.drawGameOver();
+            this.stop();
+        }
+        this.ship.immunity = 100;
+    }
+
     checkCollisions(){
-        for (let bullet of this.bullets){
-            for (let asteroid of this.asteroids){
+    
+        this.ship.immunity--;
+        for (let asteroid of this.asteroids){
+            for (let bullet of this.bullets){
+                //asteroid-bullet
                 if (bullet.isCollidedWith(asteroid)){
                     this.bullets.delete(bullet);
                     this.asteroids.delete(asteroid);
-                }
+                }                            
+            }
+            //asteroid-ship
+            if (this.ship.isCollidedWith(asteroid)){
+                this.handleShipCollision(asteroid.position);
+                this.asteroids.delete(asteroid);
             }
         }
+
     }
 
     tick() {
+        if (!this.running){
+            return;
+        }
+
         Canvas.clear();        
         this.move();
         this.draw();
@@ -89,7 +119,12 @@ export default class Game {
     }
 
     start() {
+        this.running = true;
         this.tick();
+    }
+
+    stop(){
+        this.running = false;
     }
     
 }
