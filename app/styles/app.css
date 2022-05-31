@@ -30,6 +30,7 @@ canvas {
     transform: translate(120%, -50%);
 }
 
+/* navBar start*/
 .navBar {    
     flex-direction: reverse;
     background-color: orange;
@@ -37,7 +38,26 @@ canvas {
     width: 200;
     height: 200;
     justify-content: left;
+    padding-left: 20px;
+    padding-bottom: 5px;
 }
+
+.navBarTitle {
+    font-size: 25px;
+}
+
+.navBarButtons {
+    padding-left: 30px;
+}
+
+.navBarButton {
+
+}
+.navBarButton:hover {
+    color: red;
+}
+
+/* navBar end*/
 
 .bodyMain {    
     position: absolute;
@@ -50,3 +70,36 @@ canvas {
     align-items: center;
     width: 100%;
 }
+
+/* high scores stuff */
+#highScoreTitle {
+    color: white;
+    text-align: center;
+    font-size: 50px;
+}
+
+.highScoreBlocks {
+    display: flex;    
+}
+#highScoreBlock {
+    padding: 30px;
+}
+
+#highScoreHeader {
+    color: red;
+    font-size: 30px;
+    text-align: center;
+}
+
+.highScoreList {
+    color: blue;
+    margin: auto;
+    font-size: 30px;
+    text-align: left;
+}
+
+.highScoresTimestamp {
+    font-size: 12px;
+    color: white;
+}
+/* high scores end */

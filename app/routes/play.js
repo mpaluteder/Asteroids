@@ -3,7 +3,7 @@ import Route from '@ember/routing/route';
 //import Game from '../classes/Game';
 
 export default class PlayRoute extends Route {
-  //@service game;
+    //@service game;
 
-  model() {}
+    model() {}
 }

@@ -9,12 +9,18 @@ export default class Game {
   asteroids;
   ship;
   bullets;
+  CANVAS_WIDTH = 1000;
+  CANVAS_HEIGHT = 1000;
+  canvasContext;
 
-  constructor(asteroidCount = 10) {
+  constructor(canvasContext = undefined, asteroidCount = 10) {
+    this.canvasContext = canvasContext;
     this.max_asteroids = asteroidCount;
     this.asteroids = new Set();
-    this.ship = new Ship();
+    this.ship = new Ship(this.canvasContext);
     this.bullets = new Set();
+    this.canvasContext.canvas.width = this.CANVAS_WIDTH;
+    this.canvasContext.canvas.height = this.CANVAS_HEIGHT;
     this.bindHandlers();
   }
 
@@ -61,7 +67,7 @@ export default class Game {
 
   repopulateAsteroids() {
     for (let i = this.asteroids.size; i < this.max_asteroids; i++) {
-      this.asteroids.add(Asteroid.createFromRandomEdge(3));
+      this.asteroids.add(Asteroid.createFromRandomEdge(this.canvasContext, 3));
     }
   }
 
@@ -72,9 +78,9 @@ export default class Game {
     this.ship.health--;
     console.log('Collision! Remaining health: ' + this.ship.health);
 
-    Canvas.drawShipDamageEffect(collisionPosition);
+    Canvas.drawShipDamageEffect(this.canvasContext, collisionPosition);
     if (this.ship.health <= 0) {
-      Canvas.drawGameOver();
+      Canvas.drawGameOver(this.canvasContext);
       this.stop();
     }
     this.ship.immunity = 100;
@@ -114,7 +120,7 @@ export default class Game {
       return;
     }
 
-    Canvas.clear();
+    Canvas.clear(this.canvasContext);
     this.move();
     this.draw();
     this.removeOutOfBounds();

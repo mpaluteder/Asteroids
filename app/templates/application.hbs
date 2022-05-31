@@ -1,7 +1,7 @@
 {{page-title "Asteroids"}}
 <div>
   <div class="navBar">
-      <div class="h-12 flex items-center mb-4 border-b-2">
+      <div class="navBarTitle">
         <a href="#">
           <h1 >
             <strong>Asteroids</strong>: <span>the game</span>
@@ -9,10 +9,10 @@
         </a> 
       </div>
 
-      <nav class="h-8 flex items-center mb-8">
-          <LinkTo class="hover:text-gray-500" @route="play">Play</LinkTo>
-          |
-          <LinkTo class="hover:text-gray-500 ml-4" @route="scores">Scores</LinkTo>
+      <nav class="navBarButtons">
+          <LinkTo class="navBarButton" @route="play">Play</LinkTo>
+          | <!--this is an element divider, do not remove -->
+          <LinkTo class="navBarButton" @route="scores">Scores</LinkTo>
       </nav>
   </div>
   <div class="bodyMain">
