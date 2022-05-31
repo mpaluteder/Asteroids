@@ -81,11 +81,12 @@ canvas {
 .highScoreBlocks {
     display: flex;    
 }
-#highScoreBlock {
-    padding: 30px;
+.highScoreBlock {
+    padding: 10px;
+    padding-left: 50px;
 }
 
-#highScoreHeader {
+.highScoreHeader {
     color: red;
     font-size: 30px;
     text-align: center;
@@ -103,3 +104,31 @@ canvas {
     color: white;
 }
 /* high scores end */
+
+/* Stats window */
+.statsWindow {
+    color: red;
+    border: 2px solid white;
+    height: 500px;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    width: 200px;
+    transform: translate(550%, -50%);
+}
+
+.statsTitle {
+    color: red;
+    padding: 10px;
+    font-size: 20px;
+    text-decoration: underline;
+}
+
+.statsList {
+    padding: 10px;
+}
+
+.statListItem {
+    
+}
+/* Stats window end */

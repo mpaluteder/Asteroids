@@ -1,15 +1,27 @@
 import Service from '@ember/service';
-//import Game from '../classes/Game';
+import { tracked } from '@glimmer/tracking';
+import Game from '../classes/Game';
 
 export default class GameService extends Service {
-    game;
+    @tracked game;
 
     constructor() {
-        console.log('game service');
+        console.log('Initializing game service...');
         super(...arguments);
-        /*
-    this.game = new Game();
-    this.game.start();
-    */
+
+        this.game = new Game();
+    }
+
+    getScore() {
+        return this.game.score;
+    }
+
+    setCanvasContext(canvasContext) {
+        this.game.canvasContext = canvasContext;
+    }
+
+    startGame() {
+        this.game.start();
+        return true;
     }
 }
