@@ -1,2 +1,0 @@
-# Asteroids
-Here be asteroids
