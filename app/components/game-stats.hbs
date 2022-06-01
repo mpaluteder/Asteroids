@@ -1,9 +1,10 @@
 <div class="statsWindow">
     <h1 class="statsTitle">Stats</h1>    
     <ul class="statsList">
-        <li class="statListItem">Health: {{this.health}}</li>
-        <li class="statListItem">Score: {{this.score}}</li>
-        <li class="statListItem">Time: </li>
+        <li class="statListItem">Health: {{this.game.game.ship.health}}</li>
+        <li class="statListItem">Score: {{this.game.game.score}}</li>
+        <li class="statListItem">Time: {{duration this.myGame.roundBeginTime}}</li>
+        <button {{on "click" this.myScore}} type="button">Check score</button>
     </ul>
 </div>
 {{yield}}

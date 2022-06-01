@@ -2,6 +2,7 @@ import Canvas from './utility/Canvas';
 import Ship from './ship';
 import key from 'keymaster';
 import Asteroid from './Asteroid';
+import { tracked } from '@glimmer/tracking';
 
 export default class Game {
     running;
@@ -12,17 +13,14 @@ export default class Game {
     CANVAS_WIDTH = 1000;
     CANVAS_HEIGHT = 1000;
     canvasContext;
-    score = 0;
+    @tracked score = 0;
 
     constructor(canvasContext = undefined, asteroidCount = 10) {
         this.canvasContext = canvasContext;
         this.max_asteroids = asteroidCount;
         this.asteroids = new Set();
-        //this.ship = new Ship(this.canvasContext);
         this.bullets = new Set();
-        //this.canvasContext.canvas.width = this.CANVAS_WIDTH;
-        //this.canvasContext.canvas.height = this.CANVAS_HEIGHT;
-        this.bindHandlers(); /**/
+        this.bindHandlers();
     }
 
     bindHandlers() {
@@ -143,6 +141,8 @@ export default class Game {
             );
             return;
         }
+        this.canvasContext.canvas.width = this.CANVAS_WIDTH;
+        this.canvasContext.canvas.height = this.CANVAS_HEIGHT;
 
         this.ship = new Ship(this.canvasContext);
         this.running = true;
@@ -151,5 +151,9 @@ export default class Game {
 
     stop() {
         this.running = false;
+    }
+
+    resume() {
+        this.running = true;
     }
 }

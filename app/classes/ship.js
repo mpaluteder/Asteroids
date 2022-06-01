@@ -2,6 +2,7 @@ import Canvas from './utility/Canvas';
 import Vec2 from './Vec2';
 import MovingObject from './MovingObject';
 import key from 'keymaster';
+import { tracked } from '@glimmer/tracking';
 
 export default class Ship extends MovingObject {
     BULLET_RADIUS = 5;
@@ -11,7 +12,7 @@ export default class Ship extends MovingObject {
     min_bullet_velocity = 10;
     turning_speed = Math.PI / 50;
     direction;
-    health = 3;
+    @tracked health = 3;
     immunity = 0;
 
     constructor(canvasContext) {

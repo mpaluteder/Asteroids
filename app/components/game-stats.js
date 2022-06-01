@@ -1,24 +1,18 @@
 import Component from '@glimmer/component';
-//import Component from '@ember/component';
-import Game from '../classes/Game';
 import { inject as service } from '@ember/service';
+import { getOwner } from '@ember/application';
 
 export default class GameStatsComponent extends Component {
-    @service game;
-    health = 0;
+    @service('game') game;
+    get myGame() {
+        return getOwner(this).lookup('service:game');
+    }
     score = 0;
 
     constructor() {
-        console.log(document.querySelector('canvas-stage'));
-        
+        //console.log(document.querySelector('canvas-stage'));
+
         super(...arguments);
-        console.log('s=' + this.game.getScore());
-        //this.game = new Game();
+        this.score = this.game.getScore();
     }
-
-    myScore() {
-        return new Date();
-    }
-
-
 }
