@@ -3,8 +3,7 @@
     <ul class="statsList">
         <li class="statListItem">Health: {{this.game.game.ship.health}}</li>
         <li class="statListItem">Score: {{this.game.game.score}}</li>
-        <li class="statListItem">Time: {{duration this.myGame.roundBeginTime}}</li>
-        <button {{on "click" this.myScore}} type="button">Check score</button>
+        <li class="statListItem">Time: {{duration this.game.roundBeginTime}}</li>       
     </ul>
 </div>
 {{yield}}

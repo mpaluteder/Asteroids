@@ -7,6 +7,8 @@ export default class CanvasModifier extends Modifier {
     modify(element) {
         const CANVAS_CONTEXT = element.getContext('2d');
         this.game.setCanvasContext(CANVAS_CONTEXT);
+        console.log('canvas?');
+
         this.game.startGame();
     }
 }

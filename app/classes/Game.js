@@ -5,10 +5,10 @@ import Asteroid from './Asteroid';
 import { tracked } from '@glimmer/tracking';
 
 export default class Game {
-    running;
+    @tracked running;
     max_asteroids;
     asteroids;
-    ship;
+    @tracked ship;
     bullets;
     CANVAS_WIDTH = 1000;
     CANVAS_HEIGHT = 1000;
@@ -144,6 +144,7 @@ export default class Game {
         this.canvasContext.canvas.width = this.CANVAS_WIDTH;
         this.canvasContext.canvas.height = this.CANVAS_HEIGHT;
 
+        this.score = 0;
         this.ship = new Ship(this.canvasContext);
         this.running = true;
         this.tick();

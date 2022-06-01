@@ -46,15 +46,23 @@ export default class GameService extends Service {
         this.roundBeginTime = new Date();
     }
 
-    getScore() {
-        return this.game.score;
-    }
-
     setCanvasContext(canvasContext) {
         this.game.canvasContext = canvasContext;
     }
 
+    recordScore() {
+        let myScore = 111; //this.game.score;
+        if (myScore > 0) {
+            this.highScores.push({
+                name: 'test',
+                score: myScore,
+                time: new Date().toLocaleString('ja-JP'),
+            });
+        }
+    }
+
     startGame() {
+        this.recordScore();
         this.game.start();
         return true;
     }

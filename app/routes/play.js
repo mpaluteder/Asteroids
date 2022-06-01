@@ -7,6 +7,5 @@ export default class PlayRoute extends Route {
 
     model() {
         console.log('Play route model');
-        console.log('route score: ' + this.game.getScore());
     }
 }
