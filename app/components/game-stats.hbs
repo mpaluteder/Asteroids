@@ -1,9 +1,11 @@
 <div class="statsWindow">
     <h1 class="statsTitle">Stats</h1>    
     <ul class="statsList">
-        <li class="statListItem">Health: {{this.game.game.ship.health}}</li>
-        <li class="statListItem">Score: {{this.game.game.score}}</li>
-        <li class="statListItem">Time: {{duration this.game.roundBeginTime}}</li>       
+        <li class="StatsItem">Player: <span class="statsValue">{{this.game.game.player}}</span></li>
+        <li class="statsItem">Health: <span class="statsValue">{{this.game.game.ship.health}}</span></li>
+        <li class="statsItem">Score: <span class="statsValue">{{this.game.game.score}}</span></li>
+        <li class="statsItem">Time: <span class="statsValue">{{duration this.game.roundBeginTime}}</span></li>       
+        <li class="statsItem">Running: <span class="statsValue">{{this.game.game.running}}</span></li>       
     </ul>
 </div>
 {{yield}}

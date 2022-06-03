@@ -3,9 +3,14 @@ import Ship from './ship';
 import key from 'keymaster';
 import Asteroid from './Asteroid';
 import { tracked } from '@glimmer/tracking';
+import { inject as service } from '@ember/service';
 
 export default class Game {
-    @tracked running;
+    @service scores;
+    @service game;
+
+    running = false;
+    player = 'Bruce Willis';
     max_asteroids;
     asteroids;
     @tracked ship;
@@ -26,6 +31,11 @@ export default class Game {
     bindHandlers() {
         if (key.isPressed('space')) {
             this.bullets.add(this.ship.shoot());
+        }
+        if (key.isPressed('escape')) {
+            console.log('Pause' + !this.running);
+            this.running = false;
+            Canvas.drawPause(this.canvasContext);
         }
     }
 
@@ -117,9 +127,9 @@ export default class Game {
         }
     }
 
-    tick() {
+    async tick() {
         if (!this.running) {
-            return;
+            return true;
         }
 
         Canvas.clear(this.canvasContext);
@@ -132,14 +142,14 @@ export default class Game {
         requestAnimationFrame(this.tick.bind(this));
     }
 
-    start() {
+    async start() {
         if (!this.canvasContext) {
             console.error(
                 'Game canvas is not defined: "' +
                     this.canvasContext +
                     '", fix before continuing!'
             );
-            return;
+            return false;
         }
         this.canvasContext.canvas.width = this.CANVAS_WIDTH;
         this.canvasContext.canvas.height = this.CANVAS_HEIGHT;
@@ -147,14 +157,22 @@ export default class Game {
         this.score = 0;
         this.ship = new Ship(this.canvasContext);
         this.running = true;
-        this.tick();
+        return new Promise((resolve, reject) => {
+            this.tick();
+            resolve();
+        });
     }
 
     stop() {
         this.running = false;
+        //this.recordScore();
     }
 
     resume() {
         this.running = true;
+    }
+
+    recordScore() {
+        this.scores.recordScore(this.score, this.player);
     }
 }

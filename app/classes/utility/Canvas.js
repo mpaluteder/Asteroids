@@ -15,21 +15,32 @@ export default {
         canvasContext.stroke();
     },
 
-    drawShipDamageEffect(canvasContext, damagePosition) {
-        canvasContext.fillStyle = 'red';
-        canvasContext.font = '32px serif';
+    drawText(
+        canvasContext,
+        text,
+        position = {
+            x: canvasContext.canvas.width / 2,
+            y: canvasContext.canvas.height / 2,
+        },
+        font = '64px serif',
+        color = 'red'
+    ) {
+        canvasContext.fillStyle = color;
+        canvasContext.font = font;
         canvasContext.textAlign = 'center';
-        canvasContext.fillText('Ouch!', damagePosition.x, damagePosition.y);
+        canvasContext.fillText(text, position.x, position.y);
+    },
+
+    drawShipDamageEffect(canvasContext, damagePosition) {
+        this.drawText(canvasContext, 'ouch!', damagePosition, '32px serif');
     },
 
     drawGameOver(canvasContext) {
-        canvasContext.font = '64px serif';
-        canvasContext.textAlign = 'center';
-        canvasContext.fillText(
-            'Game over :(',
-            canvasContext.canvas.width / 2,
-            canvasContext.canvas.height / 2
-        );
+        this.drawText(canvasContext, 'Game over :(');
+    },
+
+    drawPause(canvasContext) {
+        this.drawText(canvasContext, 'Pause!');
     },
 
     clear(canvasContext) {

@@ -4,7 +4,7 @@
         <div class="highScoreBlock">
             <h2 class="highScoreHeader">Rank</h2>
             <ul>
-                {{#each this.game.highScores as |highScore index|}}
+                {{#each this.scores.highScores as |highScore index|}}
                     <li>{{index}}</li>
                 {{/each}}
             </ul>
@@ -12,7 +12,7 @@
         <div class="highScoreBlock">
             <h2 class="highScoreHeader">Score</h2>
             <ul>
-                {{#each this.game.highScores as |highScore|}}
+                {{#each this.scores.highScores as |highScore|}}
                     <li>{{highScore.score}}</li>
                 {{/each}}
             </ul>
@@ -20,7 +20,7 @@
         <div class="highScoreBlock">
             <h2 class="highScoreHeader">Player</h2>
             <ul>
-                {{#each this.game.highScores as |highScore|}}
+                {{#each this.scores.highScores as |highScore|}}
                     <li>{{highScore.name}}</li>
                 {{/each}}
             </ul>
@@ -28,7 +28,7 @@
         <div class="highScoreBlock">
             <h2 class="highScoreHeader">Time</h2>
             <ul>
-                {{#each this.game.highScores as |highScore|}}
+                {{#each this.scores.highScores as |highScore|}}
                     <li>{{highScore.time}}</li>
                 {{/each}}
             </ul>
