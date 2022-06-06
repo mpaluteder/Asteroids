@@ -6,6 +6,6 @@ export default class PlayRoute extends Route {
     @service game;
 
     model() {
-        console.log('Play route model');
+        console.log('Play route model:' + this.game.started);
     }
 }

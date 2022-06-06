@@ -1,5 +1,10 @@
-<div>
-    <canvas class="canvas-stage" id="canvas-stage" width="1000px" height="1000px" {{canvas}}></canvas>    
-    <game-stats/>
+<div class="playArea">  
+    {{#if this.game.started}}
+        <canvas class="canvas-stage" id="canvas-stage" width="1000px" height="1000px" {{canvas}}></canvas>    
+        <Game-stats/>
+    {{else}}
+        <Player-name/>
+    {{/if}}
+
 </div>
 {{yield}}

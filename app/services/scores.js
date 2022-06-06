@@ -4,7 +4,6 @@ import { tracked } from '@glimmer/tracking';
 const DAY_IN_MILLISECONDS = 1000 * 60 * 60 * 24;
 
 export default class ScoresService extends Service {
-
     @tracked highScores = [
         {
             name: 'You',
@@ -44,11 +43,19 @@ export default class ScoresService extends Service {
     sortLastScore() {
         const HIGHSCORE_COUNT = this.highScores.length;
         for (let i = 1; i < HIGHSCORE_COUNT; i++) {
-            if (this.highScores[HIGHSCORE_COUNT - i].score > this.highScores[HIGHSCORE_COUNT - i - 1].score ) {
+            if (
+                this.highScores[HIGHSCORE_COUNT - i].score >
+                this.highScores[HIGHSCORE_COUNT - i - 1].score
+            ) {
                 //swap
-                [this.highScores[HIGHSCORE_COUNT - i], this.highScores[HIGHSCORE_COUNT - i - 1]] = [this.highScores[HIGHSCORE_COUNT - i - 1], this.highScores[HIGHSCORE_COUNT - i]];
-            }
-            else {
+                [
+                    this.highScores[HIGHSCORE_COUNT - i],
+                    this.highScores[HIGHSCORE_COUNT - i - 1],
+                ] = [
+                    this.highScores[HIGHSCORE_COUNT - i - 1],
+                    this.highScores[HIGHSCORE_COUNT - i],
+                ];
+            } else {
                 return;
             }
         }

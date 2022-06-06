@@ -19,6 +19,7 @@ export default class Game {
     CANVAS_HEIGHT = 1000;
     canvasContext;
     @tracked score = 0;
+    tickNumber = 0;
 
     constructor(canvasContext = undefined, asteroidCount = 10) {
         this.canvasContext = canvasContext;
@@ -30,7 +31,9 @@ export default class Game {
 
     bindHandlers() {
         if (key.isPressed('space')) {
-            this.bullets.add(this.ship.shoot());
+            for (let bullet of this.ship.shoot()) {
+                this.bullets.add(bullet);
+            }
         }
         if (key.isPressed('escape')) {
             console.log('Pause' + !this.running);
@@ -43,7 +46,7 @@ export default class Game {
         for (let asteroid of this.asteroids) {
             asteroid.move();
         }
-        this.ship.move();
+        this.ship.move(this.canvasContext);
 
         for (let bullet of this.bullets) {
             bullet.move();
@@ -54,7 +57,7 @@ export default class Game {
         for (let asteroid of this.asteroids) {
             asteroid.draw();
         }
-        this.ship.draw();
+        this.ship.draw(this.tickNumber);
         for (let bullet of this.bullets) {
             bullet.draw();
         }
@@ -128,6 +131,7 @@ export default class Game {
     }
 
     async tick() {
+        this.tickNumber++;
         if (!this.running) {
             return true;
         }
@@ -157,9 +161,8 @@ export default class Game {
         this.score = 0;
         this.ship = new Ship(this.canvasContext);
         this.running = true;
-        return new Promise((resolve, reject) => {
+        return new Promise(() => {
             this.tick();
-            resolve();
         });
     }
 

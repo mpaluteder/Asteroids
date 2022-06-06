@@ -16,6 +16,7 @@ html, body {
 }
 
 body {    
+    color: red;
     justify-content: center;
     align-items: center;
 }
@@ -32,6 +33,7 @@ canvas {
 
 /* navBar start*/
 .navBar {    
+    color: black;
     flex-direction: reverse;
     background-color: orange;
     position: static;
@@ -136,3 +138,13 @@ canvas {
     color: white;
 }
 /* Stats window end */
+
+/* Player name */
+.playerNameInput {
+    margin: 0 auto;
+    display: flex;
+}
+.playerNameLabel {
+    color: red;
+}
+/* */
