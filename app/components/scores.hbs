@@ -1,0 +1,38 @@
+<div class="highScoreList">
+    <h1 id="highScoreTitle">HIGHSCORES</h1>
+    <div class="highScoreBlocks">
+        <div class="highScoreBlock">
+            <h2 class="highScoreHeader">Rank</h2>
+            <ul>
+                {{#each this.scores.highScores as |highScore index|}}
+                    <li>{{index}}</li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="highScoreBlock">
+            <h2 class="highScoreHeader">Score</h2>
+            <ul>
+                {{#each this.scores.highScores as |highScore|}}
+                    <li>{{highScore.score}}</li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="highScoreBlock">
+            <h2 class="highScoreHeader">Player</h2>
+            <ul>
+                {{#each this.scores.highScores as |highScore|}}
+                    <li>{{highScore.name}}</li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="highScoreBlock">
+            <h2 class="highScoreHeader">Time</h2>
+            <ul>
+                {{#each this.scores.highScores as |highScore|}}
+                    <li>{{highScore.time}}</li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>
+{{yield}}

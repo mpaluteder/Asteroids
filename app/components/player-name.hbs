@@ -1,0 +1,14 @@
+<div class="bodyMain">
+    <label class="playerNameLabel">
+        Player name:
+        <input 
+            id="player-name" 
+            type="text" 
+            value={{this.newPlayerName}} 
+            {{on "input" this.changeName}}
+        />
+
+        <button type="button" {{on "click" this.startGame}}>Start!</button>
+    </label>
+</div>
+{{yield}}
