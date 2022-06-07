@@ -1,7 +1,9 @@
 import Canvas from './utility/Canvas';
 import Ship from './ship';
 import key from 'keymaster';
-import Asteroid from './Asteroid';
+import Asteroid, {
+    DEFAULT_RADIUS as ASTEROID_DEFAULT_RADIUS,
+} from './Asteroid';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 
@@ -80,7 +82,12 @@ export default class Game {
     repopulateAsteroids() {
         for (let i = this.asteroids.size; i < this.max_asteroids; i++) {
             this.asteroids.add(
-                Asteroid.createFromRandomEdge(this.canvasContext, 3)
+                Asteroid.createFromRandomEdge(
+                    this.canvasContext,
+                    3,
+                    true,
+                    ASTEROID_DEFAULT_RADIUS + Math.floor(this.tickNumber / 10)
+                )
             );
         }
     }
@@ -126,6 +133,25 @@ export default class Game {
             //asteroid-ship
             if (this.ship.isCollidedWith(asteroid)) {
                 this.handleCollisions(asteroid, this.ship, 'asteroid-ship');
+            }
+        }
+
+        //asteroid-asteroid
+        if (this.tickNumber % 10 === 0) {
+            //console.log(this.asteroids.size);
+            const ASTEROIDS_ARRAY = Array.from(this.asteroids);
+            for (let i = 0; i < ASTEROIDS_ARRAY.length; i++) {
+                let asteroid = ASTEROIDS_ARRAY[i];
+                for (let j = i + 1; j < ASTEROIDS_ARRAY.length; j++) {
+                    let otherAsteroid = ASTEROIDS_ARRAY[j];
+                    if (asteroid.isCollidedWith(otherAsteroid)) {
+                        this.handleCollisions(
+                            asteroid,
+                            otherAsteroid,
+                            'asteroid-asteroid'
+                        );
+                    }
+                }
             }
         }
     }

@@ -1,7 +1,7 @@
 import Vec2 from './Vec2';
 import MovingObject from './MovingObject';
 
-const DEFAULT_RADIUS = 10;
+export const DEFAULT_RADIUS = 10;
 const DEFAULT_BORDER_WIDTH = 2;
 
 export default class Asteroid extends MovingObject {
@@ -15,8 +15,7 @@ export default class Asteroid extends MovingObject {
         radius = 10,
         generation = 1
     ) {
-        super(canvasContext, position, velocity, color, radius);
-
+        super(canvasContext, position, velocity, color, radius, false, true);
         this.generation = generation;
     }
 
@@ -58,13 +57,14 @@ export default class Asteroid extends MovingObject {
     static createFromRandomEdge(
         canvasContext,
         maxVelocity = 10,
-        easeInFromObjectOuterBorder = true
+        easeInFromObjectOuterBorder = true,
+        asteroid_size = DEFAULT_RADIUS
     ) {
         const CANVAS_WIDTH = canvasContext.canvas.width;
         const CANVAS_HEIGHT = canvasContext.canvas.height;
         const addedSpacing = easeInFromObjectOuterBorder
             ? 0
-            : DEFAULT_RADIUS + DEFAULT_BORDER_WIDTH;
+            : asteroid_size + DEFAULT_BORDER_WIDTH;
 
         let lockXPlane = Math.random() < 0.5;
         let lockReverse = Math.random() < 0.5;
@@ -98,13 +98,17 @@ export default class Asteroid extends MovingObject {
         }
         const randomColor =
             '#' + Math.floor(Math.random() * 16777215).toString(16);
-        return new Asteroid(
+
+        let asteroid = new Asteroid(
             canvasContext,
             randomPosition,
             randomVelocity,
             randomColor,
-            DEFAULT_RADIUS,
+            asteroid_size,
             1
         );
+        //asteroid.fillWithColor = true;
+        //asteroid.fillWithGradient = true;
+        return asteroid;
     }
 }

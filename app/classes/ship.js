@@ -70,7 +70,12 @@ export default class Ship extends MovingObject {
                 : Math.floor(tickNumber / 10) % 2 === 0
                 ? true
                 : false;
-        Canvas.drawRectangle(this.canvasContext, rectangleAttributes, false, fillBody);
+        Canvas.drawRectangle(
+            this.canvasContext,
+            rectangleAttributes,
+            false,
+            fillBody
+        );
         Canvas.drawText(
             this.canvasContext,
             this.SHIP_NAME,
@@ -97,11 +102,19 @@ export default class Ship extends MovingObject {
             let triangleAttributes = {
                 a: {
                     x: this.position.x,
-                    y: this.position.y + this.SHIP_HEIGHT + rectangleAttributes.height + 5,
+                    y:
+                        this.position.y +
+                        this.SHIP_HEIGHT +
+                        rectangleAttributes.height +
+                        5,
                 },
                 b: {
                     x: this.position.x + rectangleAttributes.width,
-                    y: this.position.y + this.SHIP_HEIGHT + rectangleAttributes.height + 5,
+                    y:
+                        this.position.y +
+                        this.SHIP_HEIGHT +
+                        rectangleAttributes.height +
+                        5,
                 },
                 c: {
                     x: this.position.x + rectangleAttributes.width / 2,
@@ -111,9 +124,12 @@ export default class Ship extends MovingObject {
                 lineWidth: this.lineWidth,
             };
             Canvas.drawTriangle(this.canvasContext, triangleAttributes, true);
-            triangleAttributes.a.x += this.SHIP_WIDTH - rectangleAttributes.width;
-            triangleAttributes.b.x += this.SHIP_WIDTH - rectangleAttributes.width;
-            triangleAttributes.c.x += this.SHIP_WIDTH - rectangleAttributes.width;
+            triangleAttributes.a.x +=
+                this.SHIP_WIDTH - rectangleAttributes.width;
+            triangleAttributes.b.x +=
+                this.SHIP_WIDTH - rectangleAttributes.width;
+            triangleAttributes.c.x +=
+                this.SHIP_WIDTH - rectangleAttributes.width;
             Canvas.drawTriangle(this.canvasContext, triangleAttributes, true);
             this.boosters_active = false;
         }

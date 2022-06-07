@@ -5,7 +5,7 @@ import Game from '../classes/Game';
 export default class GameService extends Service {
     @tracked game;
     @tracked roundBeginTime;
-    @tracked started = true;
+    @tracked started = false;
 
     constructor() {
         console.log('Initializing game service...');
@@ -30,12 +30,5 @@ export default class GameService extends Service {
             });
         }
         //console.log('recorded score for ' + this.game.player + this.scores.highScores);
-    }
-
-    async startGame() {
-        //const CANVAS = this.game.canvasContext;
-        //this.game = new Game();
-        //this.game.canvasContext = CANVAS;
-        //this.game.start();
     }
 }

@@ -15,9 +15,13 @@ export default {
         if (fillWithColor) {
             canvasContext.fillStyle = color;
             canvasContext.fill();
-        }
-        else if (fillWithGradient) {
-            let gradient = canvasContext.createLinearGradient(x + width, y + height, x, y + height);
+        } else if (fillWithGradient) {
+            let gradient = canvasContext.createLinearGradient(
+                x + width,
+                y + height,
+                x,
+                y + height
+            );
             gradient.addColorStop(0, 'gray');
             gradient.addColorStop(1, color);
             canvasContext.fillStyle = gradient;
@@ -25,7 +29,11 @@ export default {
         }
     },
 
-    drawTriangle(canvasContext, { a, b, c, color, lineWidth }, fillWithColor = false) {
+    drawTriangle(
+        canvasContext,
+        { a, b, c, color, lineWidth },
+        fillWithColor = false
+    ) {
         canvasContext.beginPath();
         canvasContext.moveTo(a.x, a.y);
         canvasContext.lineTo(b.x, b.y);
@@ -48,6 +56,7 @@ export default {
         fillWithGradient = false
     ) {
         canvasContext.beginPath();
+        //console.log(color + ', ' + fillWithColor + ', ' + fillWithGradient);
 
         canvasContext.lineWidth = lineWidth;
         canvasContext.strokeStyle = color;
@@ -58,9 +67,15 @@ export default {
         if (fillWithColor) {
             canvasContext.fillStyle = color;
             canvasContext.fill();
-        }
-        else if (fillWithGradient) {
-            let gradient = canvasContext.createRadialGradient(x, y, radius / 3, x, y, radius);
+        } else if (fillWithGradient && (color[0] != '#' || color.length >= 7)) { //TODO color length fix
+            let gradient = canvasContext.createRadialGradient(
+                x,
+                y,
+                radius / 3,
+                x,
+                y,
+                radius
+            );
             gradient.addColorStop(0, color);
             gradient.addColorStop(1, 'black');
             canvasContext.fillStyle = gradient;
@@ -75,7 +90,7 @@ export default {
             x: canvasContext.canvas.width / 2,
             y: canvasContext.canvas.height / 2,
         },
-        font = '64px serif',
+        font = '80px serif',
         color = 'red',
         rotate90Degrees = false
     ) {
@@ -91,6 +106,9 @@ export default {
             canvasContext.restore();
         } else {
             canvasContext.fillText(text, position.x, position.y);
+            canvasContext.strokeStyle = 'white';
+            canvasContext.strokeText(text, position.x, position.y);
+            canvasContext.stroke();
         }
     },
 

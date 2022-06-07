@@ -9,6 +9,8 @@ export default class MovingObject {
     position;
     velocity;
     color;
+    fillWithColor = false;
+    fillWithGradient = false;
     radius = DEFAULT_RADIUS;
     lineWidth = DEFAULT_BORDER_WIDTH;
     colors = [];
@@ -18,13 +20,17 @@ export default class MovingObject {
         initialPosition = new Vec2(),
         initialVelocity = new Vec2(1, 1),
         initialColor = 'red',
-        radius = DEFAULT_RADIUS
+        radius = DEFAULT_RADIUS,
+        fillWithColor = false,
+        fillWithGradient = false
     ) {
         this.canvasContext = canvasContext;
         this.position = initialPosition;
         this.velocity = initialVelocity;
         this.color = initialColor;
         this.radius = radius;
+        this.fillWithColor = fillWithColor;
+        this.fillWithGradient = fillWithGradient;
     }
 
     move() {
@@ -32,13 +38,18 @@ export default class MovingObject {
     }
 
     draw() {
-        Canvas.drawCircle(this.canvasContext, {
-            x: this.position.x,
-            y: this.position.y,
-            radius: this.radius,
-            color: this.color,
-            lineWidth: this.lineWidth,
-        });
+        Canvas.drawCircle(
+            this.canvasContext,
+            {
+                x: this.position.x,
+                y: this.position.y,
+                radius: this.radius,
+                color: this.color,
+                lineWidth: 1,
+            },
+            this.fillWithColor,
+            this.fillWithGradient
+        );
     }
 
     outOfBounds() {
@@ -50,7 +61,7 @@ export default class MovingObject {
     }
 
     outOfBoundsDirection() {
-        const SPACING_FROM_BORDER = 0; //this.radius + this.lineWidth;
+        const SPACING_FROM_BORDER = 0;
 
         if (this.position.y < SPACING_FROM_BORDER) {
             return 'N';
